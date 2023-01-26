@@ -34,7 +34,9 @@ The OS is configured with 2 UNIX users:
 | `root`             | `root`             |
 | `dev`              | `dev`              |
 
-Open a SSH connexion to the container:
+> `dev` is "_sudoer_".
+
+### SSH connexion using private SSK key
 
 ```bash
 ssh -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost
@@ -45,7 +47,7 @@ ssh -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost
 >
 > You may need to clean the host SSH configuration: `ssh-keygen -f "/home/denis/.ssh/known_hosts" -R "[localhost]:2222"`
 
-SSH connexions using UNIX password:
+### SSH connexion using UNIX password
 
 ```bash
 ssh -o IdentitiesOnly=yes -p 2222 root@localhost
