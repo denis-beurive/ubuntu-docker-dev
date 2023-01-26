@@ -8,6 +8,8 @@ RUN (apt-get install -y ssh expect)
 RUN (apt-get install -y build-essential)
 RUN (apt-get install -y software-properties-common)
 RUN (apt-get install -y wget \
+                        openssl \
+                        libssl-dev \
                         sudo)
 
 # -----------------------------------------------------------------
@@ -60,12 +62,17 @@ RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 
 RUN (apt-get install -y zip \
                         unzip \
-                        openssl \
-                        libssl-dev \
                         locate \
                         jq \
-                        tree)
+                        tree \
+                        rustc)
 RUN (apt clean)
+
+# -----------------------------------------------------------------
+# Update RUST compilation toolchain.
+# -----------------------------------------------------------------
+
+RUN (rustup update)
 
 # -----------------------------------------------------------------
 # Update locate database.
