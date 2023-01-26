@@ -65,20 +65,30 @@ RUN (apt-get install -y zip \
                         locate \
                         jq \
                         tree \
-                        rustc)
+                        curl)
 RUN (apt clean)
 
 # -----------------------------------------------------------------
-# Update RUST compilation toolchain.
+# Install RUST compilation toolchain.
 # -----------------------------------------------------------------
 
+USER dev
+RUN (curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y)
+ENV PATH="${PATH}:/home/dev/.cargo/bin"
 RUN (rustup update)
 
 # -----------------------------------------------------------------
 # Update locate database.
 # -----------------------------------------------------------------
 
+USER root
 RUN (updatedb)
+
+# -----------------------------------------------------------------
+# Last cleanup.
+# -----------------------------------------------------------------
+
+RUN (rm /tmp/install_ssh_keys.sh)
 
 # -----------------------------------------------------------------
 # Start the SSH daemon.
