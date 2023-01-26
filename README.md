@@ -36,7 +36,7 @@ The OS is configured with 2 UNIX users:
 
 > `dev` is "_sudoer_".
 
-### SSH connexion using private SSK key
+### SSH connexion using private SSH key
 
 ```bash
 ssh -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost
