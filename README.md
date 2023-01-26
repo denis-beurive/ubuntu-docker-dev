@@ -1,12 +1,18 @@
+# Ubuntu JAMMY docker container for developers
 
+This repository contains the "Dockerfile" that builds a development environment for C/C++/Rust developers under JAMMY docker.
 
-# Build the container
+> This image is designed to be used with CLION full remote mode (through SSH).
+>
+> You can easily add other development environments (for Python, Perl, NodeJs, Java...).
+
+## Build the image
 
 ```bash
 docker build --tag ubuntu-dev .
 ```
 
-# Run the container
+## Run a container
 
 ```bash
 docker run --detach \
@@ -19,7 +25,7 @@ docker run --detach \
            ubuntu-dev
 ```
 
-# Connecting to the container
+## Connecting to the container
 
 The OS is configured with 2 UNIX users:
 
