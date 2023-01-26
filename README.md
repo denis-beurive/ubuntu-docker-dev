@@ -39,7 +39,7 @@ ssh -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost
 >
 > You may need to clean the host SSH configuration: `ssh-keygen -f "/home/denis/.ssh/known_hosts" -R "[localhost]:2222"`
 
-SH connexions using UNIX password:
+SSH connexions using UNIX password:
 
 ```bash
 ssh -o IdentitiesOnly=yes -p 2222 root@localhost
