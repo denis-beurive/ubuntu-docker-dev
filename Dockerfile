@@ -3,13 +3,12 @@ FROM ubuntu:jammy
 
 RUN (echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker)
 RUN (echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker)
-RUN (apt update)
-RUN (apt install -y ssh expect)
-RUN (apt install -y build-essential)
-RUN (apt install -y software-properties-common)
-RUN (apt install -y wget zip unzip openssl libssl-dev mlocate jq tree)
-RUN (rm -rf /var/lib/apt/lists/*)
-RUN (apt clean)
+RUN (apt-get update)
+RUN (apt-get install -y ssh expect)
+RUN (apt-get install -y build-essential)
+RUN (apt-get install -y software-properties-common)
+RUN (apt-get install -y wget \
+                        sudo)
 
 # -----------------------------------------------------------------
 # Create and configure users.
@@ -55,10 +54,31 @@ WORKDIR /tmp
 RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 
 # -----------------------------------------------------------------
+# Add packages here so we can add more without the need to
+# recompile CMAKE.
+# -----------------------------------------------------------------
+
+RUN (apt-get install -y zip \
+                        unzip \
+                        openssl \
+                        libssl-dev \
+                        locate \
+                        jq \
+                        tree)
+RUN (apt clean)
+
+# -----------------------------------------------------------------
+# Udale locate database.
+# -----------------------------------------------------------------
+
+RUN (update db)
+
+# -----------------------------------------------------------------
 # Start the SSH daemon.
 # -----------------------------------------------------------------
 
 # 22 for ssh server. 7777 for gdb server.
 EXPOSE 22 7777
-CMD ["/usr/sbin/sshd", "-D"]
+RUN service ssh start
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]
 
