@@ -71,7 +71,7 @@ RUN (apt clean)
 # Udale locate database.
 # -----------------------------------------------------------------
 
-RUN (update db)
+RUN (updatedb)
 
 # -----------------------------------------------------------------
 # Start the SSH daemon.
