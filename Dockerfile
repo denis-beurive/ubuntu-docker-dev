@@ -68,7 +68,7 @@ RUN (apt-get install -y zip \
 RUN (apt clean)
 
 # -----------------------------------------------------------------
-# Udale locate database.
+# Update locate database.
 # -----------------------------------------------------------------
 
 RUN (updatedb)
