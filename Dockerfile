@@ -9,6 +9,10 @@ RUN (apt-get install -y build-essential)
 RUN (apt-get install -y software-properties-common)
 RUN (apt-get install -y wget \
                         openssl \
+                        man-db \
+                        manpages-dev \
+                        manpages-posix \
+                        manpages-posix-dev \
                         libssl-dev \
                         sudo)
 
@@ -67,6 +71,7 @@ RUN (apt-get install -y zip \
                         jq \
                         tree \
                         curl)
+
 RUN (apt clean)
 
 # -----------------------------------------------------------------
