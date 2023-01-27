@@ -40,6 +40,7 @@ USER dev
 RUN (/tmp/install_ssh_keys.sh)
 USER root
 RUN (/tmp/install_ssh_keys.sh)
+RUN (rm /tmp/install_ssh_keys.sh)
 
 # -----------------------------------------------------------------
 # Update CMAKE. Use "cmake --version" to check.
@@ -83,12 +84,6 @@ RUN (rustup update)
 
 USER root
 RUN (updatedb)
-
-# -----------------------------------------------------------------
-# Last cleanup.
-# -----------------------------------------------------------------
-
-RUN (rm /tmp/install_ssh_keys.sh)
 
 # -----------------------------------------------------------------
 # Start the SSH daemon.
