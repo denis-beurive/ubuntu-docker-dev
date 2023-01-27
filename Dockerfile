@@ -68,9 +68,11 @@ RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 RUN (apt-get install -y zip \
                         unzip \
                         git \
+                        autoconf \
                         locate \
                         jq \
                         tree \
+                        vim \
                         curl)
 
 RUN (apt clean)
