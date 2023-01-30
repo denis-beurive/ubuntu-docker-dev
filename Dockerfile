@@ -10,9 +10,14 @@ RUN (apt-get install -y software-properties-common)
 RUN (apt-get install -y wget \
                         openssl \
                         man-db \
+                        git \
+                        gdb \
                         manpages-dev \
                         manpages-posix \
                         manpages-posix-dev \
+                        autoconf \
+                        automake \
+                        libtool \
                         libssl-dev \
                         sudo)
 
@@ -67,14 +72,13 @@ RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 
 RUN (apt-get install -y zip \
                         unzip \
-                        git \
-                        autoconf \
                         locate \
                         jq \
                         tree \
                         vim \
                         curl)
-
+# Specific tools
+RUN (apt-get install -y libcurl4-openssl-dev)
 RUN (apt clean)
 
 # -----------------------------------------------------------------
@@ -87,7 +91,7 @@ ENV PATH="${PATH}:/home/dev/.cargo/bin"
 RUN (rustup update)
 
 # -----------------------------------------------------------------
-# Update locate database.
+# Update tools and environments.
 # -----------------------------------------------------------------
 
 USER root
