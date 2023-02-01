@@ -90,11 +90,24 @@ RUN (curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y)
 ENV PATH="${PATH}:/home/dev/.cargo/bin"
 RUN (rustup update)
 
+
+# -----------------------------------------------------------------
+# Install JANSSON (for personal use)
+# -----------------------------------------------------------------
+
+USER root
+WORKDIR /tmp
+RUN (wget http://digip.org/jansson/releases/jansson-2.13.tar.gz)
+RUN (gunzip jansson-2.13.tar.gz)
+RUN (tar xvf jansson-2.13.tar)
+RUN (rm jansson-2.13.tar)
+WORKDIR /tmp/jansson-2.13
+RUN (./configure && make && make install)
+
 # -----------------------------------------------------------------
 # Update tools and environments.
 # -----------------------------------------------------------------
 
-USER root
 RUN (updatedb)
 
 # -----------------------------------------------------------------
