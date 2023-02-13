@@ -104,6 +104,8 @@ RUN (tar xvf jansson-2.13.tar)
 RUN (rm jansson-2.13.tar)
 WORKDIR /tmp/jansson-2.13
 RUN (./configure && make && make install)
+WORKDIR /tmp
+RUN (rm -rf jansson-2.13)
 
 # -----------------------------------------------------------------
 # Update tools and environments.
