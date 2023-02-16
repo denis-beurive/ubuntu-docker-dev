@@ -79,7 +79,6 @@ RUN (apt-get install -y zip \
                         vim \
                         curl)
 # Specific tools
-RUN (apt-get install -y libcurl4-openssl-dev)
 RUN (apt clean)
 
 # -----------------------------------------------------------------
@@ -96,21 +95,55 @@ RUN (rustup update)
 # Install JANSSON (for personal use)
 # -----------------------------------------------------------------
 
-USER root
+USER dev
+RUN (mkdir -p ${HOME}/componants/jansson-2.13)
 WORKDIR /tmp
 RUN (wget http://digip.org/jansson/releases/jansson-2.13.tar.gz)
-RUN (gunzip jansson-2.13.tar.gz)
-RUN (tar xvf jansson-2.13.tar)
-RUN (rm jansson-2.13.tar)
+RUN (tar xzvf jansson-2.13.tar.gz)
+RUN (rm jansson-2.13.tar.gz)
 WORKDIR /tmp/jansson-2.13
-RUN (./configure && make && make install)
+RUN (./configure --prefix=${HOME}/componants/jansson-2.13 --exec-prefix=${HOME}/componants/jansson-2.13)
+RUN (make && make install)
 WORKDIR /tmp
 RUN (rm -rf jansson-2.13)
+
+# -----------------------------------------------------------------
+# Install the version 7.88 of libcurl (for personal use)
+# -----------------------------------------------------------------
+
+USER dev
+RUN (mkdir -p ${HOME}/componants/curl-7.88.0)
+WORKDIR /tmp
+RUN (wget https://curl.se/download/curl-7.88.0.tar.gz)
+RUN (tar xzvf curl-7.88.0.tar.gz)
+RUN (rm curl-7.88.0.tar.gz)
+WORKDIR /tmp/curl-7.88.0
+RUN (./configure  --with-openssl --prefix=${HOME}/componants/curl-7.88.0 --exec-prefix=${HOME}/componants/curl-7.88.0)
+RUN (make && make install)
+WORKDIR /tmp
+RUN (rm -rf curl-7.88.0)
+
+# -----------------------------------------------------------------
+# Install PCRE2 (for personal use)
+# -----------------------------------------------------------------
+
+USER dev
+RUN (mkdir -p ${HOME}/componants/pcre2-10.42)
+WORKDIR /tmp
+RUN (wget https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.gz)
+RUN (tar xzvf pcre2-10.42.tar.gz)
+RUN (rm pcre2-10.42.tar.gz)
+WORKDIR /tmp/pcre2-10.42
+RUN (./configure --prefix=${HOME}/componants/pcre2-10.42 --exec-prefix=${HOME}/componants/pcre2-10.42)
+RUN (make && make install)
+WORKDIR /tmp
+RUN (rm -rf pcre2-10.42)
 
 # -----------------------------------------------------------------
 # Update tools and environments.
 # -----------------------------------------------------------------
 
+USER root
 RUN (updatedb)
 
 # -----------------------------------------------------------------
