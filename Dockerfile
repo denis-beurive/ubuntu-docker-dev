@@ -140,6 +140,16 @@ WORKDIR /tmp
 RUN (rm -rf pcre2-10.42)
 
 # -----------------------------------------------------------------
+# Install Chilkat (for personal use)
+# -----------------------------------------------------------------
+
+USER dev
+WORKDIR /home/dev/componants
+RUN (wget https://chilkatdownload.com/9.5.0.93/chilkat-9.5.0-x86_64-linux-gcc.tar.gz)
+RUN (tar zxvf chilkat-9.5.0-x86_64-linux-gcc.tar.gz)
+RUN (rm chilkat-9.5.0-x86_64-linux-gcc.tar.gz)
+
+# -----------------------------------------------------------------
 # Update tools and environments.
 # -----------------------------------------------------------------
 
