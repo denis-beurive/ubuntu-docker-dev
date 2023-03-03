@@ -54,3 +54,15 @@ ssh -o IdentitiesOnly=yes -p 2222 root@localhost
 ssh -o IdentitiesOnly=yes -p 2222 dev@localhost
 ```
 
+## SCP 
+
+From the host, download a file (stored on the container):
+
+```bash
+scp -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/sftp-example-download.dump /tmp/
+```
+
+
+
+
+
