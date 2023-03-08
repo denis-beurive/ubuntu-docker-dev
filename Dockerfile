@@ -47,6 +47,8 @@ ADD data/install_ssh_keys.sh /tmp
 RUN (chmod a+xr /tmp/install_ssh_keys.sh)
 
 USER dev
+RUN (if [ -f /tmp/install_ssh_keys.sh ]; then echo "sucess: script exists"; else echo "failure: script does not exist!"; fi)
+RUN (if [ -x /tmp/install_ssh_keys.sh ]; then echo "sucess: script can be executed"; else echo "failure: script cannot be executed!"; fi)
 RUN (/tmp/install_ssh_keys.sh)
 USER root
 RUN (/tmp/install_ssh_keys.sh)

@@ -9,8 +9,12 @@ This repository contains the "Dockerfile" that builds a development environment 
 ## Build the image
 
 ```bash
-docker build --tag ubuntu-dev .
+docker build --tag ubuntu-dev --progress=plain .
 ```
+
+> Useful command: `docker system prune -a` (this will clean the cache).
+>
+> The option `--progress=plain` is useful for debugging (not mandatory).
 
 ## Run a container
 
@@ -62,6 +66,19 @@ From the host, download a file (stored on the container):
 scp -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/sftp-example-download.dump /tmp/
 ```
 
+# Notes for Windows
+
+Path to the CLI executable: `C:\Program Files\Docker\Docker`
+
+> Must be added to the environment variable.
+
+```
+> where docker
+C:\Program Files\Docker\Docker\resources\bin\docker
+C:\Program Files\Docker\Docker\resources\bin\docker.exe
+```
+
+Before you can build the image, or run a container, you must start the Docker Deamon. This is done through the GUI.
 
 
 
