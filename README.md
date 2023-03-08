@@ -68,6 +68,8 @@ scp -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost
 
 # Notes for Windows
 
+## Docker
+
 Path to the CLI executable: `C:\Program Files\Docker\Docker`
 
 > Must be added to the environment variable.
@@ -80,6 +82,7 @@ C:\Program Files\Docker\Docker\resources\bin\docker.exe
 
 Before you can build the image, or run a container, you must start the Docker Deamon. This is done through the GUI.
 
+# Resources
 
-
-
+* [StackOverflow](https://stackoverflow.com/questions/75675823/docker-build-script-to-execute-does-not-exist-but-it-actually-exists-works): a workaround for a strange problem on Windows only.
+* [StackOverflow](https://stackoverflow.com/questions/54397706/how-to-output-a-multiline-string-in-dockerfile-with-a-single-command): multiline string in a `Dockerfile`.
