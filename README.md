@@ -33,10 +33,10 @@ docker run --detach \
 
 The OS is configured with 2 UNIX users:
 
-| user               | password           |
-|--------------------|--------------------|
-| `root`             | `root`             |
-| `dev`              | `dev`              |
+| user               | password           | MobaXterm session                         |
+|--------------------|--------------------|-------------------------------------------|
+| `root`             | `root`             | [root](data/ContainerUbuntuSamyRoot.moba) |
+| `dev`              | `dev`              | [dev](data/ContainerUbuntuSamyDev.moba)   |
 
 > `dev` is "_sudoer_".
 
