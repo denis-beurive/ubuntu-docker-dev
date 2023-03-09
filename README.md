@@ -19,7 +19,9 @@ docker build --tag ubuntu-dev --progress=plain .
 ## Run a container
 
 ```bash
-docker run --detach \
+docker run --cap-add=SYS_PTRACE \
+           --security-opt seccomp=unconfined \
+           --detach \
            --net=bridge \
            --interactive \
            --tty \
@@ -28,6 +30,8 @@ docker run --detach \
            --publish 7777:7777/tcp \
            ubuntu-dev
 ```
+
+> The options `--cap-add=SYS_PTRACE` and `--security-opt seccomp=unconfined` allow you to use GDB.
 
 ## Connecting to the container
 

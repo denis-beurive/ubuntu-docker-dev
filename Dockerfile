@@ -165,13 +165,17 @@ RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 # recompile CMAKE.
 # -----------------------------------------------------------------
 
+USER root
 RUN (apt-get install -y zip \
                         unzip \
                         locate \
                         jq \
                         tree \
                         vim \
-                        curl)
+                        curl \
+                        iputils-ping \
+                        netcat \
+                        net-tools)
 # Specific tools
 RUN (apt clean)
 
