@@ -19,6 +19,7 @@ RUN (apt-get install -y wget \
                         automake \
                         libtool \
                         libssl-dev \
+                        clang-format \
                         sudo)
 
 # -----------------------------------------------------------------
