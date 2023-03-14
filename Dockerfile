@@ -20,6 +20,7 @@ RUN (apt-get install -y wget \
                         libtool \
                         libssl-dev \
                         clang-format \
+                        doxygen \
                         sudo)
 
 # -----------------------------------------------------------------
