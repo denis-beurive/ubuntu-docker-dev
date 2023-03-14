@@ -21,6 +21,7 @@ RUN (apt-get install -y wget \
                         libssl-dev \
                         clang-format \
                         doxygen \
+                        graphviz \
                         sudo)
 
 # -----------------------------------------------------------------
