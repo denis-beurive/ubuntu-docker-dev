@@ -20,6 +20,7 @@ RUN (apt-get install -y wget \
                         automake \
                         libtool \
                         libssl-dev \
+                        libc6-dbg \
                         clang-format \
                         doxygen \
                         graphviz \
