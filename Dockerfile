@@ -1,6 +1,7 @@
 FROM ubuntu:jammy
 
 
+USER root
 RUN (echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker)
 RUN (echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker)
 RUN (apt-get update)
@@ -28,6 +29,7 @@ RUN (apt-get install -y wget \
 # Create and configure users.
 # -----------------------------------------------------------------
 
+USER root
 RUN (useradd -rm -d /home/dev -s /bin/bash -g root -G sudo -u 1000 dev)
 RUN (echo 'dev:dev' | chpasswd)
 RUN (echo 'root:root' | chpasswd)
@@ -36,12 +38,14 @@ RUN (echo 'root:root' | chpasswd)
 # Configure SSH server.
 # -----------------------------------------------------------------
 
+USER root
 RUN (ssh-keygen -A; \
      sed -i 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config; \
      sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config; \
      sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config; \
      sed -iE 's/\s*#\s*PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config; )
 
+USER root
 RUN (mkdir -p /root/.ssh/; \
      echo "StrictHostKeyChecking=no" > /root/.ssh/config; \
      echo "UserKnownHostsFile=/dev/null" >> /root/.ssh/config)
@@ -55,6 +59,7 @@ RUN (mkdir -p /root/.ssh/; \
 # and
 # https://stackoverflow.com/questions/54397706/how-to-output-a-multiline-string-in-dockerfile-with-a-single-command
 
+USER root
 RUN echo '#!/bin/bash\n\
 #\n\
 # The set -e option instructs bash to immediately exit if any command has a\n\
@@ -155,6 +160,7 @@ RUN (rm /tmp/install_ssh_keys.sh)
 # The original version will still be under "/usr/bin".
 # -----------------------------------------------------------------
 
+USER root
 WORKDIR /tmp
 RUN (wget https://github.com/Kitware/CMake/releases/download/v3.24.3/cmake-3.24.3.tar.gz)
 RUN (tar zxvf cmake-3.24.3.tar.gz)
@@ -169,6 +175,7 @@ RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 # -----------------------------------------------------------------
 
 USER root
+RUN (apt-get update)
 RUN (apt-get install -y zip \
                         unzip \
                         locate \
@@ -249,6 +256,20 @@ WORKDIR /home/dev/componants
 RUN (wget https://chilkatdownload.com/9.5.0.93/chilkat-9.5.0-x86_64-linux-gcc.tar.gz)
 RUN (tar zxvf chilkat-9.5.0-x86_64-linux-gcc.tar.gz)
 RUN (rm chilkat-9.5.0-x86_64-linux-gcc.tar.gz)
+
+# -----------------------------------------------------------------
+# Install Valgrind
+# -----------------------------------------------------------------
+
+USER root
+WORKDIR /tmp
+RUN (wget https://sourceware.org/pub/valgrind/valgrind-3.20.0.tar.bz2)
+RUN (bzip2 -d valgrind-3.20.0.tar.bz2)
+RUN (tar -xvf valgrind-3.20.0.tar)
+RUN (rm valgrind-3.20.0.tar)
+WORKDIR /tmp/valgrind-3.20.0
+RUN (./configure)
+RUN (make && make install)
 
 # -----------------------------------------------------------------
 # Update tools and environments.
