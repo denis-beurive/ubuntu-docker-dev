@@ -270,6 +270,8 @@ RUN (rm valgrind-3.20.0.tar)
 WORKDIR /tmp/valgrind-3.20.0
 RUN (./configure)
 RUN (make && make install)
+WORKDIR /tmp
+RUN (rm -rf /tmp/valgrind-3.20.0)
 
 # -----------------------------------------------------------------
 # Update tools and environments.
