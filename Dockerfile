@@ -283,6 +283,7 @@ RUN (export PERL_MM_USE_DEFAULT=1 && yes | cpan -i JSON)
 
 # -----------------------------------------------------------------
 # Install GOLANG
+# See: https://go.dev/doc/install
 # -----------------------------------------------------------------
 
 USER root
