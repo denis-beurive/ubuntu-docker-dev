@@ -8,6 +8,7 @@ RUN (apt-get update)
 RUN (apt-get install -y ssh expect)
 RUN (apt-get install -y build-essential)
 RUN (apt-get install -y software-properties-common)
+RUN (apt-get update)
 RUN (apt-get install -y wget \
                         openssl \
                         man-db \
