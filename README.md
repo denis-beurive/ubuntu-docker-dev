@@ -18,6 +18,8 @@ docker build --tag ubuntu-dev --progress=plain .
 
 ## Run a container
 
+Bash:
+
 ```bash
 docker run --cap-add=SYS_PTRACE \
            --security-opt seccomp=unconfined \
@@ -28,6 +30,21 @@ docker run --cap-add=SYS_PTRACE \
            --rm \
            --publish 2222:22/tcp \
            --publish 7777:7777/tcp \
+           ubuntu-dev
+```
+
+MSDOS:
+
+```bash
+docker run --cap-add=SYS_PTRACE ^
+           --security-opt seccomp=unconfined ^
+           --detach ^
+           --net=bridge ^
+           --interactive ^
+           --tty ^
+           --rm ^
+           --publish 2222:22/tcp ^
+           --publish 7777:7777/tcp ^
            ubuntu-dev
 ```
 
