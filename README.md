@@ -1,6 +1,6 @@
 # Ubuntu JAMMY docker container for developers
 
-This repository contains the "Dockerfile" that builds a development environment for C/C++/Rust developers under JAMMY docker.
+This repository contains the "Dockerfile" that build a development environment for C/C++/Rust developers with Ubuntu [Jammy](jammy/Dockerfile) and [Noble](noble/Dockerfile) docker containers.
 
 > This image is designed to be used with CLION full remote mode (through SSH).
 >
@@ -9,7 +9,13 @@ This repository contains the "Dockerfile" that builds a development environment 
 ## Build the image
 
 ```bash
-docker build --tag ubuntu-dev --progress=plain .
+docker build --tag ubuntu-dev-jammy --progress=plain .
+```
+
+or:
+
+```bash
+docker build --tag ubuntu-dev-noble --progress=plain .
 ```
 
 > Useful command: `docker system prune -a` (this will clean the cache).
@@ -18,9 +24,10 @@ docker build --tag ubuntu-dev --progress=plain .
 
 ## Run a container
 
-Bash:
+**Bash**
 
 ```bash
+CONTAINER_NAME="ubuntu-dev-jammy" # or CONTAINER_NAME="ubuntu-dev-noble"
 docker run --cap-add=SYS_PTRACE \
            --security-opt seccomp=unconfined \
            --detach \
@@ -30,12 +37,15 @@ docker run --cap-add=SYS_PTRACE \
            --rm \
            --publish 2222:22/tcp \
            --publish 7777:7777/tcp \
-           ubuntu-dev
+           --volume="/path/to/host:/path/to/container" \
+           ${CONTAINER_NAME}
 ```
 
-MSDOS:
+**MSDOS**
 
 ```bash
+REM or CONTAINER_NAME="ubuntu-dev-noble"
+SET CONTAINER_NAME="ubuntu-dev-jammy"
 docker run --cap-add=SYS_PTRACE ^
            --security-opt seccomp=unconfined ^
            --detach ^
@@ -45,10 +55,17 @@ docker run --cap-add=SYS_PTRACE ^
            --rm ^
            --publish 2222:22/tcp ^
            --publish 7777:7777/tcp ^
-           ubuntu-dev
+           --volume="/path/to/host:/path/to/container" ^
+           %CONTAINER_NAME%
 ```
 
+> **Note**
+>
 > The options `--cap-add=SYS_PTRACE` and `--security-opt seccomp=unconfined` allow you to use GDB.
+>
+> See:
+> * [https://docs.docker.com/engine/containers/run/#runtime-privilege-and-linux-capabilities](Runtime privilege and Linux capabilities).
+> * [http://manpagesfr.free.fr/man/man2/ptrace.2.html](ptrace man page).
 
 ## Connecting to the container
 
