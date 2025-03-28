@@ -81,28 +81,32 @@ The OS is configured with 2 UNIX users:
 ### SSH connexion using private SSH key
 
 ```bash
-ssh -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost
-ssh -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost
+ssh  -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost
+ssh  -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost
 ```
 
 > Make sure that the private key file has the right permission (`chmod 600 data/private.key`).
 >
-> You may need to clean the host SSH configuration: `ssh-keygen -f "/home/denis/.ssh/known_hosts" -R "[localhost]:2222"`
+> If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
 
 ### SSH connexion using UNIX password
 
 ```bash
-ssh -o IdentitiesOnly=yes -p 2222 root@localhost
-ssh -o IdentitiesOnly=yes -p 2222 dev@localhost
+ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 root@localhost
+ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 dev@localhost
 ```
+
+> If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
 
 ## SCP 
 
 From the host, download a file (stored on the container):
 
 ```bash
-scp -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/sftp-example-download.dump /tmp/
+scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/sftp-example-download.dump /tmp/
 ```
+
+> If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
 
 # Notes for Windows
 
