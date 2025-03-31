@@ -59,6 +59,12 @@ docker run --cap-add=SYS_PTRACE ^
            %CONTAINER_NAME%
 ```
 
+**Bash/MSDOS One liner**:
+
+```bash
+docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 7777:7777/tcp --volume="/path/to/host:/path/to/container" CONTAINER_NAME
+```
+
 > **Note**
 >
 > The options `--cap-add=SYS_PTRACE` and `--security-opt seccomp=unconfined` allow you to use GDB.
