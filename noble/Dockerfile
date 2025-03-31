@@ -228,6 +228,5 @@ RUN (updatedb)
 
 # 22 for ssh server. 7777 for gdb server.
 EXPOSE 22 7777
-RUN service ssh start
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
 

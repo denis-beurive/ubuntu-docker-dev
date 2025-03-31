@@ -71,32 +71,18 @@ docker run --cap-add=SYS_PTRACE ^
 
 The OS is configured with 2 UNIX users:
 
-| user               | password           | MobaXterm session                         |
-|--------------------|--------------------|-------------------------------------------|
-| `root`             | `root`             | [root](data/ContainerUbuntuSamyRoot.moba) |
-| `dev`              | `dev`              | [dev](data/ContainerUbuntuSamyDev.moba)   |
+| **User**           | **Password**       | **MobaXterm session**                     | **SSH connections using the private SSH key**                                                                   | **SSH connection using password**                                              |
+|--------------------|--------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| `root`             | `root`             | [root](data/ContainerUbuntuSamyRoot.moba) | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost` | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 root@localhost` |
+| `dev`              | `dev`              | [dev](data/ContainerUbuntuSamyDev.moba)   | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost`  | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 dev@localhost`  |
 
 > `dev` is "_sudoer_".
 
-### SSH connexion using private SSH key
-
-```bash
-ssh  -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost
-ssh  -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost
-```
-
 > Make sure that the private key file has the right permission (`chmod 600 data/private.key`).
 >
-> If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
-
-### SSH connexion using UNIX password
-
-```bash
-ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 root@localhost
-ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 dev@localhost
-```
-
-> If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
+> You may need to clean the host SSH configuration:
+>
+> `ssh-keygen -f "%USERPROFILE%\.ssh\known_hosts" -R "[localhost]:2222"`.
 
 ## SCP 
 
