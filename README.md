@@ -38,12 +38,19 @@ docker run --cap-add=SYS_PTRACE \
            --publish 2222:22/tcp \
            --publish 7777:7777/tcp \
            --volume="/path/to/host:/path/to/container" \
-           ${CONTAINER_NAME}
+           "${CONTAINER_NAME}"
 ```
+
+One liner:
+
+```bash
+docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="$(pwd):/home/dev" "${CONTAINER_NAME}"
+```
+
 
 **MSDOS**
 
-```bash
+```
 REM or CONTAINER_NAME="ubuntu-dev-noble"
 SET CONTAINER_NAME="ubuntu-dev-jammy"
 docker run --cap-add=SYS_PTRACE ^
@@ -59,10 +66,10 @@ docker run --cap-add=SYS_PTRACE ^
            %CONTAINER_NAME%
 ```
 
-**Bash/MSDOS One liner**:
+One liner:
 
-```bash
-docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 7777:7777/tcp --volume="/path/to/host:/path/to/container" CONTAINER_NAME
+```
+docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="%cd%:/home/dev" %CONTAINER_NAME%
 ```
 
 > **Note**

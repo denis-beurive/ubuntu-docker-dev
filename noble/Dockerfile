@@ -25,7 +25,8 @@ RUN (apt-get install -y wget \
                         clang-format \
                         doxygen \
                         graphviz \
-                        sudo)
+                        sudo \
+                        libxml2-utils)
 
 # -----------------------------------------------------------------
 # Create and configure users.
@@ -216,6 +217,24 @@ USER root
 RUN (export PERL_MM_USE_DEFAULT=1 && yes | cpan -i JSON)
 
 # -----------------------------------------------------------------
+# Configure the system for SSH
+# Look at the SSHD startup script "/etc/init.d/ssh".
+# This script prepares the environment for the SSH daemon to start.
+# -----------------------------------------------------------------
+
+USER root
+RUN (mkdir /run/sshd)
+RUN (chmod 0755 /run/sshd)
+
+# -----------------------------------------------------------------
+# Configure the boot
+# -----------------------------------------------------------------
+
+USER root
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# -----------------------------------------------------------------
 # Update tools and environments.
 # -----------------------------------------------------------------
 
@@ -226,7 +245,6 @@ RUN (updatedb)
 # Start the SSH daemon.
 # -----------------------------------------------------------------
 
-# 22 for ssh server. 7777 for gdb server.
-EXPOSE 22 7777
-ENTRYPOINT ["/usr/sbin/sshd", "-D"]
-
+STOPSIGNAL SIGTERM
+CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT ["/entrypoint.sh"]
