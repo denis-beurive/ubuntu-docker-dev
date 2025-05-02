@@ -116,12 +116,30 @@ Path to the CLI executable: `C:\Program Files\Docker\Docker`
 > Must be added to the environment variable.
 
 ```
-> where docker
+C:> where docker
 C:\Program Files\Docker\Docker\resources\bin\docker
 C:\Program Files\Docker\Docker\resources\bin\docker.exe
 ```
 
 Before you can build the image, or run a container, you must start the Docker Deamon. This is done through the GUI.
+
+## Docker Desktop - Unexpected WSL error
+
+See: [this document](https://github.com/microsoft/WSL/issues/11273)
+
+```
+C:>wsl --status
+Le service ne peut pas être démarré parce qu’il est désactivé ou qu’aucun périphérique activé ne lui est associé.
+Code d’erreur : Wsl/0x80070422
+```
+
+Start `CMD.EXE` as adminitrator, and then:
+
+```
+C:>sc.exe config wslservice start= demand
+```
+
+> For your information, I found that the problem arose after my antivirus (AVAST) performed a system cleanup.
 
 # Resources
 
