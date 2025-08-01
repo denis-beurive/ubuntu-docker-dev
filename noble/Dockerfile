@@ -26,6 +26,7 @@ RUN (apt-get install -y wget \
                         doxygen \
                         graphviz \
                         sudo \
+                        dos2unix \
                         libxml2-utils)
 
 # -----------------------------------------------------------------
@@ -232,7 +233,8 @@ RUN (chmod 0755 /run/sshd)
 
 USER root
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN (chmod +x /entrypoint.sh)
+RUN (dos2unix /entrypoint.sh)
 
 # -----------------------------------------------------------------
 # Update tools and environments.
