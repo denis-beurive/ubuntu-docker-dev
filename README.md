@@ -84,10 +84,10 @@ docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net
 
 The OS is configured with 2 UNIX users:
 
-| **User**           | **Password**       | **MobaXterm session**                     | **SSH connections using the private SSH key**                                                                   | **SSH connection using password**                                              |
-|--------------------|--------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| `root`             | `root`             | [root](data/ContainerUbuntuSamyRoot.moba) | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost` | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 root@localhost` |
-| `dev`              | `dev`              | [dev](data/ContainerUbuntuSamyDev.moba)   | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost`  | `ssh -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 dev@localhost`  |
+| **User**           | **Password**       | **MobaXterm session**                     | **SSH connections using the private SSH key**                                                                                             | **SSH connection using password**                                                                        |
+|--------------------|--------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `root`             | `root`             | [root](data/ContainerUbuntuSamyRoot.moba) | `ssh -o StrictHostKeychecking=no -o UserKnownHostsFile=NUL -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 root@localhost` | `ssh -o UserKnownHostsFile=NUL -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 root@localhost` |
+| `dev`              | `dev`              | [dev](data/ContainerUbuntuSamyDev.moba)   | `ssh -o StrictHostKeychecking=no -o UserKnownHostsFile=NUL -o IdentitiesOnly=yes -o IdentityFile=data/private.key -p 2222 dev@localhost`  | `ssh -o UserKnownHostsFile=NUL -o StrictHostKeychecking=no -o IdentitiesOnly=yes -p 2222 dev@localhost`  |
 
 > `dev` is "_sudoer_".
 
