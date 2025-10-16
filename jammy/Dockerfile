@@ -181,7 +181,7 @@ RUN (rm -rf /tmp/cmake-3.24.3 cmake-3.24.3.tar.gz)
 # -----------------------------------------------------------------
 
 USER root
-RUN (apt-get update)
+RUN apt-get update
 RUN (apt-get install -y zip \
                         unzip \
                         locate \

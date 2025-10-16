@@ -4,11 +4,11 @@ FROM ubuntu:noble
 USER root
 RUN (echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d/00-docker)
 RUN (echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker)
-RUN (apt-get update)
+RUN apt-get update
 RUN (apt-get install -y ssh expect)
 RUN (apt-get install -y build-essential)
 RUN (apt-get install -y software-properties-common)
-RUN (apt-get update)
+RUN apt-get update
 RUN (apt-get install -y wget \
                         openssl \
                         man-db \
