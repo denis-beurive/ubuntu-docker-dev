@@ -1,4 +1,4 @@
-# Ubuntu JAMMY docker container for developers
+# Ubuntu docker containers for developers
 
 This repository contains the "Dockerfile" that build a development environment for C/C++/Rust developers with Ubuntu [Jammy](jammy/Dockerfile) and [Noble](noble/Dockerfile) docker containers.
 
