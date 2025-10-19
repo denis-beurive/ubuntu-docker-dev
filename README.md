@@ -44,6 +44,8 @@ docker run --cap-add=SYS_PTRACE \
            "${CONTAINER_NAME}"
 ```
 
+* `--publish 2222:22/tcp`: for SSH connections.
+
 > **One liner**:
 > 
 > ```bash
@@ -68,6 +70,8 @@ docker run --cap-add=SYS_PTRACE ^
            %CONTAINER_NAME%
 ```
 
+* `--publish 2222:22/tcp`: for SSH connections.
+
 > **One liner**:
 >
 > ```
@@ -88,9 +92,13 @@ docker run --cap-add=SYS_PTRACE \
            --tty \
            --rm \
            --publish 2222:22/tcp \
+           --publish 5000:5000/tcp \
            --volume="$(pwd):/home/dev" \
            "${CONTAINER_NAME}"
 ```
+
+* `--publish 2222:22/tcp`: for SSH connections.
+* `--publish 5000:5000/tcp`: for GDBGUI.
 
 > **One liner**:
 > 
@@ -115,6 +123,9 @@ docker run --cap-add=SYS_PTRACE ^
            --volume="%cd%:/home/dev" ^
            %CONTAINER_NAME%
 ```
+
+* `--publish 2222:22/tcp`: for SSH connections.
+* `--publish 5000:5000/tcp`: for GDBGUI.
 
 > **One liner**:
 >
