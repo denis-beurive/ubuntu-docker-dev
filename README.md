@@ -26,10 +26,12 @@ docker build --tag ubuntu-dev-noble --progress=plain .
 
 ## Run a container
 
+### Ubuntu Jammy
+
 **Bash**
 
 ```bash
-CONTAINER_NAME="ubuntu-dev-jammy" # or CONTAINER_NAME="ubuntu-dev-noble"
+CONTAINER_NAME="ubuntu-dev-jammy"
 docker run --cap-add=SYS_PTRACE \
            --security-opt seccomp=unconfined \
            --detach \
@@ -45,14 +47,13 @@ docker run --cap-add=SYS_PTRACE \
 > **One liner**:
 > 
 > ```bash
-> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="$(pwd):/home/dev" "${CONTAINER_NAME}"
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="$(pwd):/home/dev" ubuntu-dev-jammy
 > ```
 
 
 **MSDOS**
 
 ```
-REM or CONTAINER_NAME="ubuntu-dev-noble"
 SET CONTAINER_NAME="ubuntu-dev-jammy"
 docker run --cap-add=SYS_PTRACE ^
            --security-opt seccomp=unconfined ^
@@ -70,16 +71,64 @@ docker run --cap-add=SYS_PTRACE ^
 > **One liner**:
 >
 > ```
-> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 5000:5000/tcp --volume="%cd%:/home/dev" %CONTAINER_NAME%
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 5000:5000/tcp --volume="%cd%:/home/dev" ubuntu-dev-jammy
 > ```
 
-> **Note**
+### Ubuntu Noble
+
+**Bash**
+
+```bash
+CONTAINER_NAME="ubuntu-dev-noble"
+docker run --cap-add=SYS_PTRACE \
+           --security-opt seccomp=unconfined \
+           --detach \
+           --net=bridge \
+           --interactive \
+           --tty \
+           --rm \
+           --publish 2222:22/tcp \
+           --volume="$(pwd):/home/dev" \
+           "${CONTAINER_NAME}"
+```
+
+> **One liner**:
+> 
+> ```bash
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="$(pwd):/home/dev" ubuntu-dev-noble
+> ```
+
+
+**MSDOS**
+
+```
+SET CONTAINER_NAME="ubuntu-dev-noble"
+docker run --cap-add=SYS_PTRACE ^
+           --security-opt seccomp=unconfined ^
+           --detach ^
+           --net=bridge ^
+           --interactive ^
+           --tty ^
+           --rm ^
+           --publish 2222:22/tcp ^
+           --publish 5000:5000/tcp ^
+           --volume="%cd%:/home/dev" ^
+           %CONTAINER_NAME%
+```
+
+> **One liner**:
 >
-> The options `--cap-add=SYS_PTRACE` and `--security-opt seccomp=unconfined` allow you to use GDB.
->
-> See:
-> * [https://docs.docker.com/engine/containers/run/#runtime-privilege-and-linux-capabilities](Runtime privilege and Linux capabilities).
-> * [http://manpagesfr.free.fr/man/man2/ptrace.2.html](ptrace man page).
+> ```
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 5000:5000/tcp --volume="%cd%:/home/dev" ubuntu-dev-noble
+> ```
+
+### Notes
+
+The options `--cap-add=SYS_PTRACE` and `--security-opt seccomp=unconfined` allow you to use GDB.
+
+See:
+* [https://docs.docker.com/engine/containers/run/#runtime-privilege-and-linux-capabilities](Runtime privilege and Linux capabilities).
+* [http://manpagesfr.free.fr/man/man2/ptrace.2.html](ptrace man page).
 
 ## Connecting to the container using SSH
 
@@ -116,7 +165,7 @@ scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/priva
 
 ## Using GDBGUI (Ubuntu Noble only)
 
-Connect to the container as user `dev`, then run the following commands:
+Connect to the container ([Ubuntu Noble](noble) **ONLY**) as user `dev`, then run the following commands:
 
 ```
 cd app
@@ -126,8 +175,7 @@ gdbgui --host 0.0.0.0 --port 5000 ./app &
 
 Open the following URL from your browser: [http://127.0.0.7:5000/dashboard](http://127.0.0.7:5000/dashboard)
 
-> **WARNING**: the URL starts with "127.0.0.1" !!!
-
+> **WARNING**: the URL starts with "**127.0.0.1**" (**and nothing else**) !!!
 
 # Notes for Windows
 
