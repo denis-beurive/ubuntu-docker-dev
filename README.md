@@ -9,12 +9,14 @@ This repository contains the "Dockerfile" that build a development environment f
 ## Build the image
 
 ```bash
+cd jammy
 docker build --tag ubuntu-dev-jammy --progress=plain .
 ```
 
 or:
 
 ```bash
+cd noble
 docker build --tag ubuntu-dev-noble --progress=plain .
 ```
 
@@ -36,16 +38,16 @@ docker run --cap-add=SYS_PTRACE \
            --tty \
            --rm \
            --publish 2222:22/tcp \
-           --publish 7777:7777/tcp \
-           --volume="/path/to/host:/path/to/container" \
+           --publish 8080:80/tcp \
+           --volume="$(pwd):/home/dev" \
            "${CONTAINER_NAME}"
 ```
 
-One liner:
-
-```bash
-docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="$(pwd):/home/dev" "${CONTAINER_NAME}"
-```
+> **One liner**:
+> 
+> ```bash
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 8080:80/tcp --volume="$(pwd):/home/dev" "${CONTAINER_NAME}"
+> ```
 
 
 **MSDOS**
@@ -61,16 +63,16 @@ docker run --cap-add=SYS_PTRACE ^
            --tty ^
            --rm ^
            --publish 2222:22/tcp ^
-           --publish 7777:7777/tcp ^
-           --volume="/path/to/host:/path/to/container" ^
+           --publish 8080:80/tcp ^
+           --volume="%cd%:/home/dev" ^
            %CONTAINER_NAME%
 ```
 
-One liner:
-
-```
-docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="%cd%:/home/dev" %CONTAINER_NAME%
-```
+> **One liner**:
+>
+> ```
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 8080:80/tcp --volume="%cd%:/home/dev" %CONTAINER_NAME%
+> ```
 
 > **Note**
 >
@@ -80,7 +82,7 @@ docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net
 > * [https://docs.docker.com/engine/containers/run/#runtime-privilege-and-linux-capabilities](Runtime privilege and Linux capabilities).
 > * [http://manpagesfr.free.fr/man/man2/ptrace.2.html](ptrace man page).
 
-## Connecting to the container
+## Connecting to the container using SSH
 
 The OS is configured with 2 UNIX users:
 
@@ -102,7 +104,13 @@ The OS is configured with 2 UNIX users:
 From the host, download a file (stored on the container):
 
 ```bash
-scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/sftp-example-download.dump /tmp/
+scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/file-to-download ./
+```
+
+From the host, upload a file (stored on the host):
+
+```bash
+scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 file-to-upload dev@localhost:/tmp/
 ```
 
 > If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
