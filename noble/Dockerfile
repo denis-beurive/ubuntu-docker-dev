@@ -218,6 +218,26 @@ USER root
 RUN (export PERL_MM_USE_DEFAULT=1 && yes | cpan -i JSON)
 
 # -----------------------------------------------------------------
+# Install GDBGUI (for users "root" and "dev")
+# -----------------------------------------------------------------
+
+USER root
+RUN (apt-get install -y pipx)
+RUN (pipx install gdbgui)
+RUN (pipx upgrade gdbgui)
+RUN (pipx ensurepath)
+
+USER dev
+RUN (pipx install gdbgui)
+RUN (pipx upgrade gdbgui)
+RUN (pipx ensurepath)
+
+# Create the sample test program for GDBGUI
+RUN (mkdir /home/dev/app)
+COPY data/app.c /home/dev/app/app.c
+COPY data/Makefile /home/dev/app/Makefile
+
+# -----------------------------------------------------------------
 # Configure the system for SSH
 # Look at the SSHD startup script "/etc/init.d/ssh".
 # This script prepares the environment for the SSH daemon to start.

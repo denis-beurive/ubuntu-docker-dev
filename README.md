@@ -38,7 +38,6 @@ docker run --cap-add=SYS_PTRACE \
            --tty \
            --rm \
            --publish 2222:22/tcp \
-           --publish 8080:80/tcp \
            --volume="$(pwd):/home/dev" \
            "${CONTAINER_NAME}"
 ```
@@ -46,7 +45,7 @@ docker run --cap-add=SYS_PTRACE \
 > **One liner**:
 > 
 > ```bash
-> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 8080:80/tcp --volume="$(pwd):/home/dev" "${CONTAINER_NAME}"
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --volume="$(pwd):/home/dev" "${CONTAINER_NAME}"
 > ```
 
 
@@ -63,7 +62,7 @@ docker run --cap-add=SYS_PTRACE ^
            --tty ^
            --rm ^
            --publish 2222:22/tcp ^
-           --publish 8080:80/tcp ^
+           --publish 5000:5000/tcp ^
            --volume="%cd%:/home/dev" ^
            %CONTAINER_NAME%
 ```
@@ -71,7 +70,7 @@ docker run --cap-add=SYS_PTRACE ^
 > **One liner**:
 >
 > ```
-> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 8080:80/tcp --volume="%cd%:/home/dev" %CONTAINER_NAME%
+> docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --detach --net=bridge --interactive --tty --rm --publish 2222:22/tcp --publish 5000:5000/tcp --volume="%cd%:/home/dev" %CONTAINER_NAME%
 > ```
 
 > **Note**
@@ -114,6 +113,21 @@ scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/priva
 ```
 
 > If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
+
+## Using GDBGUI (Ubuntu Noble only)
+
+Connect to the container as user `dev`, then run the following commands:
+
+```
+cd app
+make
+gdbgui --host 0.0.0.0 --port 5000 ./app &
+```
+
+Open the following URL from your browser: [http://127.0.0.7:5000/dashboard](http://127.0.0.7:5000/dashboard)
+
+> **WARNING**: the URL starts with "127.0.0.1" !!!
+
 
 # Notes for Windows
 
