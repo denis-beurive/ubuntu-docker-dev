@@ -184,7 +184,7 @@ make
 gdbgui --host 0.0.0.0 --port 5000 ./app &
 ```
 
-Open the following URL from your browser: [http://127.0.0.7:5000/dashboard](http://127.0.0.7:5000/dashboard)
+Open the following URL from your browser: [http://127.0.0.1:5000/dashboard](http://127.0.0.7:5000/dashboard)
 
 > **WARNING**: the URL starts with "**127.0.0.1**" (**and nothing else**) !!!
 
