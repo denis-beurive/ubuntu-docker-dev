@@ -163,16 +163,14 @@ The OS is configured with 2 UNIX users:
 From the host, download a file (stored on the container):
 
 ```bash
-scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/file-to-download ./
+scp -o StrictHostKeychecking=no -o UserKnownHostsFile=NUL -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 dev@localhost:/tmp/file-to-download ./
 ```
 
 From the host, upload a file (stored on the host):
 
 ```bash
-scp -o StrictHostKeychecking=no -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 file-to-upload dev@localhost:/tmp/
+scp -o StrictHostKeychecking=no -o UserKnownHostsFile=NUL -o IdentitiesOnly=yes -o IdentityFile=data/private.key -P 2222 file-to-upload dev@localhost:/tmp/
 ```
-
-> If you don't specify the option `-o StrictHostKeychecking=no`, then you may need to clean the host SSH configuration: `ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "[localhost]:2222"`
 
 ## Using GDBGUI (Ubuntu Noble only)
 
